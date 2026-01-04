@@ -171,13 +171,8 @@ dotnet ef database update
 
 Or just run the app (migrations apply automatically on startup).
 
-### 5. Seed Admin User
 
-```bash
-dotnet run -- --seed-admin --admin-email admin@example.com --admin-password YourSecurePassword123!
-```
-
-### 6. Start the Backend
+### 5. Start the Backend
 
 ```bash
 dotnet run
@@ -185,7 +180,7 @@ dotnet run
 
 API will be available at `http://localhost:5294`
 
-### 7. Start the Frontend
+### 6. Start the Frontend
 
 ```bash
 cd ../IncidentCommander.Web
@@ -195,7 +190,7 @@ npm run dev
 
 Frontend will be available at `http://localhost:5173`
 
-### 8. Start the Python MCP Server
+### 7. Start the Python MCP Server
 
 ```bash
 cd ../IncidentCommander.MCP
