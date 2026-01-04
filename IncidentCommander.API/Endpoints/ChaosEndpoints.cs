@@ -48,6 +48,8 @@ public static class ChaosEndpoints
 
                 logger.LogInformation("Manual override: Chaos stopped.");
                 await hubContext.Clients.All.SendAsync("ReceiveMessage", "System", "[INF] Manual override: Chaos stopped.");
+                logger.LogInformation("Broadcasting SystemStatus: isActive=false");
+                await hubContext.Clients.All.SendAsync("SystemStatus", new { isActive = false, mode = "None" });
 
                 return Results.Ok(new { IsActive = false, Mode = "None" });
             }
@@ -75,6 +77,8 @@ public static class ChaosEndpoints
 
                 logger.LogInformation("Manual override: Chaos started (DatabaseFailure).");
                 await hubContext.Clients.All.SendAsync("ReceiveMessage", "System", "[ERR] CRITICAL: Could not connect to primary database node at 10.0.0.5");
+                logger.LogInformation("Broadcasting SystemStatus: isActive=true");
+                await hubContext.Clients.All.SendAsync("SystemStatus", new { isActive = true, mode = incident.Status.ToString() });
 
                 return Results.Ok(new { IsActive = true, Mode = incident.Status.ToString() });
             }

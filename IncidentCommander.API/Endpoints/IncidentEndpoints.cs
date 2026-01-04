@@ -61,7 +61,7 @@ public static class IncidentEndpoints
         });
 
         // PATCH /api/incidents/{id}/resolve - Resolve an incident
-        group.MapPatch("/{id}/resolve", async (int id, [FromServices] AppDbContext db, [FromBody] ResolveIncidentRequest request) =>
+        group.MapPatch("/{id}/resolve", async (int id, [FromServices] AppDbContext db, [FromServices] IHubContext<IncidentHub> hubContext, [FromBody] ResolveIncidentRequest request) =>
         {
             var incident = await db.Incidents.FindAsync(id);
             if (incident == null)
@@ -72,6 +72,10 @@ public static class IncidentEndpoints
             incident.ResolvedAt = DateTime.UtcNow;
             incident.ResolvedBy = request.ResolvedBy;
             await db.SaveChangesAsync();
+
+            // Broadcast status change
+            Console.WriteLine($"[DEBUG] Broadcasting SystemStatus: IsActive=false for incident {id}");
+            await hubContext.Clients.All.SendAsync("SystemStatus", new { isActive = false, mode = "None" });
 
             return Results.Ok(new
             {
