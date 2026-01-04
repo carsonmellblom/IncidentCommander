@@ -10,7 +10,7 @@ import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { useAuth } from '../context/AuthContext';
 
 const AgentChat = () => {
-    const { user } = useAuth();
+    const { user, refreshToken } = useAuth();
     const isAdmin = user?.roles?.includes('Admin');
 
     const [isOpen, setIsOpen] = useState(false);
@@ -92,30 +92,36 @@ const AgentChat = () => {
         newConnection.on('AgentStatus', handleAgentStatus);
         newConnection.on('ReceiveError', handleReceiveError);
 
-        newConnection
-            .start()
-            .then(() => {
-                if (!isMounted) {
-                    newConnection.stop();
-                    return;
-                }
+        const startConnection = async (conn, retry = true) => {
+            try {
+                await conn.start();
                 console.log('✅ Connected to ChatHub');
-                return newConnection.invoke('CreateThread');
-            })
-            .then((id) => {
-                if (!isMounted) return;
-                setThreadId(id);
-                console.log('✅ Thread created:', id);
-            })
-            .catch((err) => {
+                const id = await conn.invoke('CreateThread');
+                if (isMounted) {
+                    setThreadId(id);
+                    console.log('✅ Thread created:', id);
+                }
+            } catch (err) {
                 console.error('❌ SignalR Connection Error:', err);
+                // If 401, try to refresh and retry once
+                if (retry && err.message?.includes('401')) {
+                    console.log('🔄 Attempting token refresh for SignalR...');
+                    const success = await refreshToken();
+                    if (success) {
+                        return startConnection(conn, false);
+                    }
+                }
+
                 if (isMounted) {
                     setMessages((prev) => [
                         ...prev,
                         { role: 'error', content: `Connection failed: ${err.message || 'Unable to connect.'}` },
                     ]);
                 }
-            });
+            }
+        };
+
+        startConnection(newConnection);
 
         // ✅ set both
         connectionRef.current = newConnection;

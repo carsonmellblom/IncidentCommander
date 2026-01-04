@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using IncidentCommander.Infrastructure.Data.Models;
 
 namespace IncidentCommander.API.Services;
 
@@ -39,7 +40,7 @@ public class TokenService : ITokenService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(60), // Short lived access token
+            Expires = DateTime.UtcNow.AddMinutes(15), // Short lived access token (5 minutes)
             SigningCredentials = creds,
             Issuer = _config["JwtSettings:Issuer"],
             Audience = _config["JwtSettings:Audience"]
@@ -49,5 +50,20 @@ public class TokenService : ITokenService
         var token = tokenHandler.CreateToken(tokenDescriptor);
 
         return tokenHandler.WriteToken(token);
+    }
+
+    public UserRefreshToken GenerateRefreshToken(string ipAddress)
+    {
+        var randomNumber = new byte[64];
+        using var rng = System.Security.Cryptography.RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+
+        return new UserRefreshToken
+        {
+            Token = Convert.ToBase64String(randomNumber),
+            Expires = DateTime.UtcNow.AddMinutes(60),
+            Created = DateTime.UtcNow,
+            CreatedByIp = ipAddress
+        };
     }
 }

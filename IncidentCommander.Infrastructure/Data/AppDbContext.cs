@@ -13,4 +13,5 @@ public class AppDbContext : IdentityDbContext
 
     public DbSet<Incident> Incidents { get; set; } = null!;
     public DbSet<IncidentLog> IncidentLogs { get; set; } = null!;
+    public DbSet<UserRefreshToken> UserRefreshTokens { get; set; } = null!;
 }
