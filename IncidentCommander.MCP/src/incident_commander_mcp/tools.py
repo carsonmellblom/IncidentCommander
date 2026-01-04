@@ -7,19 +7,20 @@ async def check_health(api_client: IncidentCommanderClient) -> dict[str, Any]:
     """Check the current health status of the Incident Commander system"""
     result = await api_client.get_current_incident()
     
-    if result.get("Incident") is None:
+    if result.get("incident") is None:
         return {
             "status": "Healthy",
             "message": "All systems operational. No active incidents.",
             "details": result
         }
     else:
-        incident = result["Incident"]
+        incident = result["incident"]
+        status_name = result.get("status", str(incident.get("status", "Unknown")))
         return {
-            "status": f"Unhealthy - {incident['Status']}",
-            "message": f"Active incident detected: {incident['Status']}",
-            "incident_id": incident["Id"],
-            "created_at": incident["CreatedAt"],
+            "status": f"Unhealthy - {status_name}",
+            "message": f"Active incident detected: {status_name}",
+            "incident_id": incident["id"],
+            "created_at": incident["createdAt"],
             "details": result
         }
 
@@ -29,13 +30,13 @@ async def query_logs(api_client: IncidentCommanderClient, incident_id: int | Non
     # If no incident_id provided, get current incident first
     if incident_id is None:
         current = await api_client.get_current_incident()
-        if current.get("Incident") is None:
+        if current.get("incident") is None:
             return {
                 "status": "No active incident",
                 "logs": [],
                 "message": "No logs available - system is healthy"
             }
-        incident_id = current["Incident"]["Id"]
+        incident_id = current["incident"]["id"]
     
     logs = await api_client.get_incident_logs(incident_id)
     
@@ -79,6 +80,6 @@ async def restart_service(
     return {
         "status": "Success",
         "message": f"{service_name} service restarted. Incident {incident_id} resolved.",
-        "resolved_at": result["ResolvedAt"],
-        "resolved_by": result["ResolvedBy"]
+        "resolved_at": result["resolvedAt"],
+        "resolved_by": result["resolvedBy"]
     }

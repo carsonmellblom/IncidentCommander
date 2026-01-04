@@ -66,6 +66,7 @@ const Dashboard = () => {
             connection.start()
                 .then(() => {
                     console.log('Connected to SignalR Hub');
+                    connection.on('SystemStatus', (status) => { console.log('Received SystemStatus update:', status); setChaosActive(!!status.isActive); });
                     connection.on('ReceiveMessage', (user, message) => {
                         setLogs(prevLogs => [...prevLogs, { timestamp: new Date(), message, type: user === 'System' ? 'info' : 'error' }]);
                     });
@@ -233,3 +234,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
