@@ -26,6 +26,7 @@ import TerminalRoundedIcon from '@mui/icons-material/TerminalRounded';
 import PowerSettingsNewRoundedIcon from '@mui/icons-material/PowerSettingsNewRounded';
 import { API_URL, HUB_URL } from '../config/api';
 import AgentChat from '../components/AgentChat';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
     const [logs, setLogs] = useState([]);
@@ -34,10 +35,11 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(false);
     const [authError, setAuthError] = useState(false);
     const logsEndRef = useRef(null);
+    const { fetchWithAuth } = useAuth();
 
     useEffect(() => {
         // Check initial status
-        fetch(`${API_URL}/chaos/status`, { credentials: 'include' })
+        fetchWithAuth(`${API_URL}/chaos/status`)
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     setAuthError(true);
@@ -82,9 +84,8 @@ const Dashboard = () => {
     const toggleChaos = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`${API_URL}/chaos/toggle`, {
-                method: 'POST',
-                credentials: 'include'
+            const res = await fetchWithAuth(`${API_URL}/chaos/toggle`, {
+                method: 'POST'
             });
             if (res.status === 401 || res.status === 403) {
                 setAuthError(true);

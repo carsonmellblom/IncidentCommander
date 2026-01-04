@@ -20,6 +20,14 @@ export const AuthProvider = ({ children }) => {
             if (res.ok) {
                 const data = await res.json();
                 setUser(data);
+            } else if (res.status === 401) {
+                // Try to refresh if we get a 401 on initial check
+                const refreshed = await refreshToken();
+                if (refreshed) {
+                    await checkAuth(); // Retry me check after refresh
+                    return;
+                }
+                setUser(null);
             } else {
                 setUser(null);
             }
@@ -28,6 +36,19 @@ export const AuthProvider = ({ children }) => {
             setUser(null);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const refreshToken = async () => {
+        try {
+            const res = await fetch(`${API_URL}/auth/refresh`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+            return res.ok;
+        } catch (error) {
+            console.error("Token refresh failed", error);
+            return false;
         }
     };
 
@@ -47,8 +68,26 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    const fetchWithAuth = async (url, options = {}) => {
+        const defaultOptions = { credentials: 'include', ...options };
+        let response = await fetch(url, defaultOptions);
+
+        if (response.status === 401) {
+            const refreshed = await refreshToken();
+            if (refreshed) {
+                // Retry with new tokens
+                response = await fetch(url, defaultOptions);
+            } else {
+                setUser(null);
+                // Optionally redirect to login or let the component handle it
+            }
+        }
+
+        return response;
+    };
+
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, loading, fetchWithAuth, refreshToken }}>
             {children}
         </AuthContext.Provider>
     );
