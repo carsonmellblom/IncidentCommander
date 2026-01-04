@@ -1,0 +1,29 @@
+# Use python as base
+FROM python:3.11-slim
+
+# Install Node.js
+RUN apt-get update && apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy requirements and install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source
+COPY src/ ./src/
+
+# Set environment variables
+ENV API_BASE_URL=http://api:5294
+ENV HOST=0.0.0.0
+
+# Expose the inspector port
+EXPOSE 6274
+EXPOSE 6277
+
+# Run the inspector
+CMD ["npx", "-y", "@modelcontextprotocol/inspector", "python", "-u", "-m", "src.incident_commander_mcp.server"]
