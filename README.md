@@ -1,6 +1,6 @@
 # Incident Commander
 
-A **AI incident management platform** featuring real-time agent orchestration, autonomous diagnostics, and automated remediation through the Model Context Protocol (MCP).
+An **AI incident management platform** featuring real-time agent orchestration, autonomous diagnostics, and automated remediation through the Model Context Protocol (MCP).
 
 
 
