@@ -84,8 +84,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Register Token Service
+// Register Services
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddSingleton<IMcpAgentService, McpAgentService>();
 
 // 4. (Chaos services removed - now using database-backed incidents)
 
@@ -158,6 +159,9 @@ app.MapChaosEndpoints();
 
 // SignalR Hubs
 app.MapHub<IncidentHub>("/hubs/incident")
+   .RequireCors("ClientApp");
+
+app.MapHub<ChatHub>("/hubs/chat")
    .RequireCors("ClientApp");
 
 // Log startup information using Serilog static logger

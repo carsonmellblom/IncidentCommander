@@ -49,4 +49,8 @@ appsettings.Production.json
 appsettings.Staging.json
 secrets.json
 .env
-.env.*
+.env.local
+.env.development
+.env.production
+.env.staging
+!.env.example

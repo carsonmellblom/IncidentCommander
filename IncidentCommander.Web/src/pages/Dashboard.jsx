@@ -25,6 +25,7 @@ import LocalFireDepartmentRoundedIcon from '@mui/icons-material/LocalFireDepartm
 import TerminalRoundedIcon from '@mui/icons-material/TerminalRounded';
 import PowerSettingsNewRoundedIcon from '@mui/icons-material/PowerSettingsNewRounded';
 import { API_URL, HUB_URL } from '../config/api';
+import AgentChat from '../components/AgentChat';
 
 const Dashboard = () => {
     const [logs, setLogs] = useState([]);
@@ -224,6 +225,9 @@ const Dashboard = () => {
                     Unauthorized: Admin privileges required for chaos operations.
                 </Alert>
             </Snackbar>
+
+            {/* AI Agent Chat - Admin Only */}
+            <AgentChat />
         </Container >
     );
 };
