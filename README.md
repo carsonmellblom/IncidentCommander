@@ -1,6 +1,8 @@
 # Incident Commander
 
-A **production-grade AI incident management platform** featuring real-time agent orchestration, autonomous diagnostics, and automated remediation through the Model Context Protocol (MCP).
+A **AI incident management platform** featuring real-time agent orchestration, autonomous diagnostics, and automated remediation through the Model Context Protocol (MCP).
+
+This is an example project and is for my own educational purposes only
 
 ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4)
 ![React](https://img.shields.io/badge/React-18.3-61DAFB)
@@ -486,22 +488,8 @@ This project showcases:
 
 ---
 
-## 📊 Performance Characteristics
-
-- **Token Latency**: < 100ms from OpenAI to browser
-- **SignalR Throughput**: 1000+ concurrent connections
-- **Database Performance**: EF Core with async queries
-- **Container Startup**: < 10 seconds
-- **API Response Time**: < 50ms (non-AI endpoints)
-
----
-
 ## 🔬 Future Enhancements
-
-- [ ] Kubernetes deployment manifests
-- [ ] Prometheus metrics and Grafana dashboards
 - [ ] GitHub Actions CI/CD pipeline
-- [ ] Integration tests with xUnit
 - [ ] Azure Application Insights telemetry
 
 ---
