@@ -171,8 +171,11 @@ dotnet ef database update
 
 Or just run the app (migrations apply automatically on startup).
 
+### 5. Create the initial user and role
 
-### 5. Start the Backend
+**Coming soon** - Create a user and give them Admin role. Further instructions will be added here
+
+### 6. Start the Backend
 
 ```bash
 dotnet run
@@ -180,7 +183,7 @@ dotnet run
 
 API will be available at `http://localhost:5294`
 
-### 6. Start the Frontend
+### 7. Start the Frontend
 
 ```bash
 cd ../IncidentCommander.Web
@@ -190,7 +193,7 @@ npm run dev
 
 Frontend will be available at `http://localhost:5173`
 
-### 7. Start the Python MCP Server
+### 8. Start the Python MCP Server
 
 ```bash
 cd ../IncidentCommander.MCP
