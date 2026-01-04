@@ -205,7 +205,7 @@ const Home = () => {
 
                 <Box sx={{ textAlign: 'center', mt: 4 }}>
                     <Typography variant="caption" color="text.secondary">
-                        A work in progress demonstration for secure AI-infrastructure integration.
+                        A work in progress demonstration for AI-infrastructure integration.
                     </Typography>
                 </Box>
             </Container>
