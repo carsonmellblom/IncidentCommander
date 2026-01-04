@@ -2,7 +2,7 @@
 
 A **AI incident management platform** featuring real-time agent orchestration, autonomous diagnostics, and automated remediation through the Model Context Protocol (MCP).
 
-This is an example project and is for my own educational purposes only
+
 
 ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4)
 ![React](https://img.shields.io/badge/React-18.3-61DAFB)
@@ -499,3 +499,9 @@ This project showcases:
 **Carson Mellblom**
 - LinkedIn: [https://www.linkedin.com/in/carsonmellblom/](https://www.linkedin.com/in/carsonmellblom/)
 - GitHub: [@carsonmellblom](https://github.com/carsonmellblom)
+
+## Disclaimer
+
+This is an example project and is for my own educational purposes only
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
