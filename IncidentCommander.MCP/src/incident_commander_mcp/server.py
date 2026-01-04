@@ -55,4 +55,19 @@ async def restart_service(service_name: str, incident_id: int) -> dict:
 
 
 if __name__ == "__main__":
-    mcp.run()
+    # Check transport mode from environment variable
+    transport = os.getenv("TRANSPORT", "stdio").lower()
+    
+    if transport == "sse":
+        # HTTP/SSE transport for Docker/production
+        import uvicorn
+        
+        port = int(os.getenv("PORT", "8000"))
+        host = os.getenv("HOST", "0.0.0.0")
+        
+        print(f"Starting MCP server with SSE transport on {host}:{port}")
+        mcp.run(transport="sse", host=host, port=port)
+    else:
+        # Stdio transport for local development
+        print("Starting MCP server with stdio transport")
+        mcp.run()

@@ -8,14 +8,22 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}
       - ConnectionStrings__DefaultConnection=${DB_CONNECTION_STRING}
+      - Azure__OpenAI__Endpoint=${AZURE_OPENAI_ENDPOINT}
+      - Azure__OpenAI__ApiKey=${AZURE_OPENAI_API_KEY}
+      - Azure__OpenAI__DeploymentName=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4o}
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
   mcp:
     build:
       context: ./IncidentCommander.MCP
+    ports:
+      - "8000:8000"
     environment:
       - API_BASE_URL=http://api:5294
+      - TRANSPORT=sse
+      - PORT=8000
+      - HOST=0.0.0.0
     depends_on:
       - api
 

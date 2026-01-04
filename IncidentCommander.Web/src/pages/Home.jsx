@@ -9,6 +9,7 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import DescriptionIcon from '@mui/icons-material/Description';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import AgentChat from '../components/AgentChat';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -209,6 +210,9 @@ const Home = () => {
                     </Typography>
                 </Box>
             </Container>
+
+            {/* Agent Chat - Admin Only */}
+            <AgentChat />
         </Box>
     );
 };
