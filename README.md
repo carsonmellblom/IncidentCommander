@@ -24,10 +24,6 @@ Built to showcase modern full-stack development, AI orchestration, and cloud-nat
 
 ---
 
-## 🏗️ Architecture
-
-## 🏗️ Architecture
-
 ### Overview
 ![Functional Architecture](docs/High%20Level%20Functional%20Architecture.png)
 
