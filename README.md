@@ -27,11 +27,12 @@ Built to showcase modern full-stack development, AI orchestration, and cloud-nat
 ## 🏗️ Architecture
 
 ## 🏗️ Architecture
-### High-Level System Design
-![Incident Commander Architecture](docs/High%20Level%20System%20Architecture.png)
 
 ### Functional Architecture
 ![Functional Architecture](docs/High%20Level%20Functional%20Architecture.png)
+
+### High-Level System Design
+![Incident Commander Architecture](docs/High%20Level%20System%20Architecture.png)
 
 ```mermaid
 graph TB
