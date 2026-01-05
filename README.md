@@ -26,7 +26,12 @@ Built to showcase modern full-stack development, AI orchestration, and cloud-nat
 
 ## 🏗️ Architecture
 
+## 🏗️ Architecture
 ### High-Level System Design
+![Incident Commander Architecture](docs/High%20Level%20System%20Architecture.png)
+
+### Functional Architecture
+![Functional Architecture](docs/High%20Level%20Functional%20Architecture.png)
 
 ```mermaid
 graph TB
@@ -329,6 +334,16 @@ IncidentCommander/
 ## 🎮 Usage
 
 ### Admin Dashboard
+![Homepage Dashboard](docs/1%20Homepage.PNG)
+1. **Login** with admin credentials
+![Sign In Page](docs/2%20Sign%20In.PNG)
+2. **Initiate Chaos Protocol** to simulate failures
+![Start Chaos Mode](docs/3%20Start%20Chaos.PNG)
+3. **Monitor active incidents**
+![Active Incident](docs/4%20Active%20Incident.PNG)
+4. **View resolution**
+![Incident Resolved](docs/5%20Incident%20Resolved.PNG)
+
 
 1. **Login** with admin credentials
 2. **Navigate to Dashboard** (Admin-only access)
