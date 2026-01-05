@@ -335,13 +335,13 @@ IncidentCommander/
 
 ### Admin Dashboard
 ![Homepage Dashboard](docs/1%20Homepage.PNG)
-1. **Login** with admin credentials
+**Login** with admin credentials
 ![Sign In Page](docs/2%20Sign%20In.PNG)
-2. **Initiate Chaos Protocol** to simulate failures
+**Initiate Chaos Protocol** to simulate failures
 ![Start Chaos Mode](docs/3%20Start%20Chaos.PNG)
-3. **Monitor active incidents**
+**Monitor active incidents**
 ![Active Incident](docs/4%20Active%20Incident.PNG)
-4. **View resolution**
+**View resolution**
 ![Incident Resolved](docs/5%20Incident%20Resolved.PNG)
 
 
